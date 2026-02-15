@@ -7,7 +7,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
 
     <style>
@@ -18,6 +17,7 @@
             --card: rgba(15, 15, 20, 0.98);
             --text: #ffffff;
             --yt-red: #ff0000;
+            --discord-blue: #5865F2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
@@ -26,128 +26,126 @@
             background-color: var(--bg); 
             color: var(--text); 
             font-family: 'Poppins', sans-serif; 
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.08), transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.08), transparent 40%);
+            background-image: radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.08), transparent 40%);
             background-attachment: fixed;
             overflow-x: hidden;
         }
 
-        /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
             border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 242, 255, 0.3);
         }
-        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 2rem; letter-spacing: 2px; text-shadow: 0 0 15px var(--primary); }
+        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 2rem; text-shadow: 0 0 15px var(--primary); }
         .logo span { color: var(--primary); }
 
-        /* --- LAYOUT --- */
         .container { max-width: 1500px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 450px; gap: 30px; }
 
         .card { 
-            background: var(--card); 
-            border-radius: 20px; 
-            padding: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            margin-bottom: 30px;
+            background: var(--card); border-radius: 20px; padding: 25px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        h2 { font-family: 'Orbitron'; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: var(--primary); }
-
-        /* --- COMPTEUR YT --- */
-        .yt-stats {
-            display: flex; align-items: center; justify-content: space-between;
-            background: rgba(255, 0, 0, 0.1);
-            padding: 15px 20px; border-radius: 12px;
-            border-left: 4px solid var(--yt-red); margin-bottom: 20px;
+        /* --- DOUBLE COMPTEUR --- */
+        .sub-counter-box {
+            background: linear-gradient(145deg, rgba(20,20,25,0.9), rgba(10,10,15,0.9));
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            padding: 25px; margin-bottom: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            text-align: center;
         }
-        .sub-btn { background: var(--yt-red); color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; transition: 0.3s; font-size: 0.8rem; }
-        .sub-btn:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); transform: translateY(-2px); }
+        .sub-number {
+            font-family: 'Orbitron'; font-size: 2.8rem; font-weight: 900;
+            display: block; margin-bottom: 5px;
+        }
+        .sub-text { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; font-weight: bold; }
+        
+        .live-pulse {
+            width: 10px; height: 10px; background: #3ba55c;
+            border-radius: 50%; display: inline-block; margin-right: 8px;
+            animation: pulse-green 1.5s infinite;
+        }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(59, 165, 92, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0); } }
 
-        /* --- VIDEO --- */
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden; border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
+        /* --- VIDEO & STAFF --- */
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden; border: 2px solid var(--primary); }
         .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
-
-        /* --- SECTION STAFF --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
         .member { 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 20px; 
-            border-radius: 15px; 
-            text-align: center; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.4s;
+            background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 15px; 
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s;
         }
-        .member:hover { 
-            border-color: var(--primary); 
-            background: rgba(0, 242, 255, 0.05);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.1);
-        }
-        .member i { font-size: 2.2rem; margin-bottom: 12px; display: block; }
-        .member-name { font-family: 'Orbitron'; font-size: 0.95rem; font-weight: bold; display: block; color: #fff; letter-spacing: 1px; }
-        .member-role { font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+        .member:hover { transform: translateY(-5px); border-color: var(--primary); background: rgba(0, 242, 255, 0.05); }
+        .member i { font-size: 2rem; margin-bottom: 10px; }
 
-        /* --- CHAT DISCORD --- */
-        .chat-container { height: 700px; border-radius: 15px; overflow: hidden; background: #000; border: 2px solid var(--secondary); box-shadow: 0 0 20px rgba(188, 19, 254, 0.2); }
-        .join-btn {
-            display: block; width: 100%; padding: 15px; margin-top: 15px;
-            background: linear-gradient(45deg, #5865F2, #4752C4);
-            color: white; text-decoration: none; text-align: center;
-            border-radius: 12px; font-weight: bold; font-family: 'Orbitron';
+        .chat-container { height: 700px; border-radius: 15px; overflow: hidden; background: #000; border: 2px solid var(--secondary); }
+        .join-btn { 
+            display: block; width: 100%; padding: 15px; margin-top: 15px; 
+            background: var(--discord-blue); color: white; text-decoration: none; 
+            text-align: center; border-radius: 10px; font-weight: bold; font-family: 'Orbitron';
             transition: 0.3s;
         }
-        .join-btn:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(88, 101, 242, 0.5); }
+        .join-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
 
-        footer { text-align: center; padding: 50px; font-family: 'Orbitron'; font-size: 0.8rem; opacity: 0.5; color: var(--primary); }
-
-        @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } .chat-container { height: 600px; } }
+        @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">MATH<span>RUSH</span></div>
-        <div style="display: flex; gap: 30px; align-items: center;">
-            <a href="https://youtube.com/@mathrushyoutube" target="_blank" style="color:#ff0000;"><i class="fab fa-youtube fa-2x"></i></a>
-            <a href="https://discord.gg/kbd4WGCY" target="_blank" style="color:#5865F2;"><i class="fab fa-discord fa-2x"></i></a>
+        <div style="display: flex; gap: 20px;">
+            <a href="https://youtube.com/@mathrushyoutube" target="_blank" style="color:var(--yt-red);"><i class="fab fa-youtube fa-2x"></i></a>
+            <a href="https://discord.gg/kbd4WGCY" target="_blank" style="color:var(--discord-blue);"><i class="fab fa-discord fa-2x"></i></a>
         </div>
     </nav>
 
     <div class="container">
-        
         <main>
-            <div class="card">
-                <div class="yt-stats">
-                    <div style="font-family: 'Orbitron'; font-weight: 700;"><i class="fab fa-youtube" style="color: var(--yt-red);"></i> MATH RUSH</div>
-                    <a href="https://youtube.com/@mathrushyoutube?sub_confirmation=1" target="_blank" class="sub-btn">S'ABONNER</a>
+            <div class="sub-counter-box">
+                <div style="border-right: 1px solid rgba(255,255,255,0.1);">
+                    <span class="sub-number" id="ytCounter" style="color: var(--yt-red); text-shadow: 0 0 15px rgba(255,0,0,0.3);">0</span>
+                    <span class="sub-text">Abonnés YouTube</span>
                 </div>
-                <h2><i class="fas fa-play"></i> DERNIÈRE VIDÉO</h2>
+                <div>
+                    <span class="sub-number" id="dcCounter" style="color: var(--discord-blue); text-shadow: 0 0 15px rgba(88,101,242,0.3);">0</span>
+                    <span class="sub-text">Membres Discord</span>
+                </div>
+                <div style="grid-column: span 2; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div style="margin-bottom: 15px;">
+                        <span class="live-pulse"></span>
+                        <span style="font-family: 'Orbitron'; font-size: 0.8rem; color: #3ba55c;">SYSTÈMES OPÉRATIONNELS</span>
+                    </div>
+                    <a href="https://youtube.com/@mathrushyoutube?sub_confirmation=1" target="_blank" style="display: inline-block; background: var(--yt-red); color: white; text-decoration: none; padding: 10px 25px; border-radius: 5px; font-weight: bold; font-size: 0.9rem; margin-right: 10px;">S'ABONNER</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 style="font-family:'Orbitron'; margin-bottom:20px; color:var(--primary);"><i class="fas fa-play"></i> DERNIÈRE VIDÉO</h2>
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/CVKQ2U4yZhw" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="card">
-                <h2><i class="fas fa-users-cog"></i> L'ÉQUIPE OFFICIELLE</h2>
+                <h2 style="font-family:'Orbitron'; margin-bottom:20px; color:var(--primary);"><i class="fas fa-users-cog"></i> L'ÉQUIPE OFFICIELLE</h2>
                 <div class="team-grid">
                     <div class="member">
-                        <i class="fas fa-crown" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
-                        <span class="member-name">MATH RUSH</span>
-                        <span class="member-role">Fondateur / Streamer</span>
+                        <i class="fas fa-crown" style="color:#ffd700;"></i>
+                        <div style="font-family:'Orbitron'; font-size: 0.8rem;">MATH RUSH</div>
+                        <div style="font-size: 0.6rem; color: var(--primary);">FONDATEUR</div>
                     </div>
                     <div class="member">
-                        <i class="fas fa-shield-halved" style="color: var(--primary); text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);"></i>
-                        <span class="member-name">ANDROCYB</span>
-                        <span class="member-role">Administrateur</span>
+                        <i class="fas fa-shield-halved" style="color:var(--primary);"></i>
+                        <div style="font-family:'Orbitron'; font-size: 0.8rem;">ANDROCYB</div>
+                        <div style="font-size: 0.6rem; color: var(--primary);">ADMIN</div>
                     </div>
                     <div class="member">
-                        <i class="fas fa-bolt" style="color: #ff00ff; text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);"></i>
-                        <span class="member-name">LIARQS</span>
-                        <span class="member-role">Staff / Modérateur</span>
+                        <i class="fas fa-bolt" style="color:var(--secondary);"></i>
+                        <div style="font-family:'Orbitron'; font-size: 0.8rem;">LIARQS</div>
+                        <div style="font-size: 0.6rem; color: var(--primary);">MODO</div>
                     </div>
                 </div>
             </div>
@@ -155,32 +153,45 @@
 
         <aside>
             <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h2><i class="fas fa-comments"></i> DISCORD</h2>
-                    <span style="font-size: 0.6rem; color: #3ba55c; border: 1px solid #3ba55c; padding: 2px 8px; border-radius: 5px; font-family: 'Orbitron';">LIVE</span>
-                </div>
-                
+                <h2 style="font-family:'Orbitron'; margin-bottom:20px; color:var(--secondary); display: flex; justify-content: space-between;">
+                    <span><i class="fab fa-discord"></i> DISCORD</span>
+                    <span style="font-size: 0.6rem; color: #3ba55c; border: 1px solid #3ba55c; padding: 2px 5px; border-radius: 4px;">LIVE</span>
+                </h2>
                 <div class="chat-container">
-                    <widgetbot 
-                        server="1454771505643782198" 
-                        channel="" 
-                        width="100%" 
-                        height="700" 
-                        shard="https://e.widgetbot.io">
-                    </widgetbot>
+                    <widgetbot server="1454771505643782198" channel="" width="100%" height="700" shard="https://e.widgetbot.io"></widgetbot>
                 </div>
-
-                <a href="https://discord.gg/kbd4WGCY" target="_blank" class="join-btn">
-                    <i class="fab fa-discord"></i> REJOINDRE LE DISCORD
-                </a>
+                <a href="https://discord.gg/kbd4WGCY" target="_blank" class="join-btn">REJOINDRE LA COMMUNAUTÉ</a>
             </div>
         </aside>
-
     </div>
 
-    <footer>
-        &copy; 2026 MATH RUSH HUB // DESIGNED BY GEMINI // ALL SYSTEMS NOMINAL
-    </footer>
+    <script>
+        // CHIFFRES À CONFIGURER
+        let finalYoutube = 20;  // Ton nombre d'abonnés
+        let finalDiscord = 50;  // Ton nombre de membres Discord (à ajuster)
+
+        function animateCount(id, endValue) {
+            let startValue = 0;
+            let duration = 2000;
+            let obj = document.getElementById(id);
+            let startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = Math.min((timestamp - startTime) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (endValue - startValue) + startValue);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        window.onload = () => {
+            animateCount("ytCounter", finalYoutube);
+            animateCount("dcCounter", finalDiscord);
+        };
+    </script>
 
 </body>
 </html>
