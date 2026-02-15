@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATH RUSH | OFFICIAL HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #bc13fe;
+            --bg: #050505;
+            --card: rgba(20, 20, 25, 0.95);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Poppins', sans-serif; 
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.05), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.05), transparent 40%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 2rem; letter-spacing: 2px; text-shadow: 0 0 15px var(--primary); }
+        .logo span { color: var(--primary); }
+
+        .container { max-width: 1500px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 450px; gap: 30px; }
+
+        .card { 
+            background: var(--card); 
+            border-radius: 20px; 
+            padding: 25px; 
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        h2 { font-family: 'Orbitron'; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: var(--primary); }
+
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden; border: 1px solid var(--primary); }
+        .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
+        .chat-container { height: 700px; border-radius: 15px; overflow: hidden; background: #000; border: 1px solid var(--secondary); }
+
+        footer { text-align: center; padding: 50px; font-family: 'Orbitron'; font-size: 0.8rem; opacity: 0.3; }
+
+        @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } .chat-container { height: 500px; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">MATH<span>RUSH</span></div>
+        <div style="display: flex; gap: 30px; align-items: center;">
+            <a href="https://youtube.com/@mathrushyoutube" target="_blank" style="color:#ff0000;"><i class="fab fa-youtube fa-2x"></i></a>
+            <a href="https://discord.gg/kbd4WGCY" target="_blank" style="color:#5865F2;"><i class="fab fa-discord fa-2x"></i></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            <div class="card">
+                <h2><i class="fas fa-play"></i> DERNIER LIVE / VIDEO</h2>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=mathrushyoutube" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <h2><i class="fas fa-bolt"></i> INFOS HUB</h2>
+                <p style="opacity: 0.9; line-height: 1.8; font-size: 1rem;">
+                    Bienvenue sur le Hub officiel de <b>Math Rush</b>. <br><br>
+                    Le chat est connecté en temps réel. Si tu es sur Discord, tu es ici !
+                </p>
+            </div>
+        </main>
+
+        <aside>
+            <div class="card" style="height: 100%;">
+                <h2><i class="fas fa-comments"></i> DISCORD LIVE</h2>
+                <div class="chat-container">
+                    <widgetbot
+                        server="1454771505643782198" 
+                        channel="" 
+                        width="100%"
+                        height="700"
+                        shard="https://e.widgetbot.io"
+                    ></widgetbot>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        &copy; 2026 MATH RUSH HUB // SERVEUR ID: 1454771505643782198
+    </footer>
+
+</body>
+</html>
