@@ -16,6 +16,7 @@
             --bg: #020205;
             --card: rgba(10, 10, 15, 0.9);
             --yt-red: #ff0000;
+            --discord-blue: #5865F2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,12 +28,11 @@
             overflow-x: hidden;
         }
 
-        /* --- FOND ANIMÉ --- */
         #canvas-stars { position: fixed; top: 0; left: 0; z-index: -1; }
 
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            padding: 15px 5%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000;
         }
         .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.8rem; text-shadow: 0 0 10px var(--primary); }
@@ -40,38 +40,68 @@
         /* --- BARRE DE NEWS --- */
         .news-bar {
             background: linear-gradient(90deg, var(--secondary), var(--primary));
-            color: black; font-weight: bold; padding: 5px 0; font-size: 0.9rem;
-            text-transform: uppercase; overflow: hidden;
+            color: black; font-weight: bold; padding: 6px 0; font-size: 0.9rem;
+            text-transform: uppercase; overflow: hidden; border-bottom: 1px solid white;
         }
-        .news-text { display: inline-block; white-space: nowrap; animation: scroll 20s linear infinite; }
+        .news-text { display: inline-block; white-space: nowrap; animation: scroll 25s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 400px; gap: 25px; }
+        /* --- EFFET GLITCH SUR TITRES --- */
+        .glitch-title:hover {
+            animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 420px; gap: 25px; }
 
         .card { 
             background: var(--card); border-radius: 15px; padding: 20px; 
             border: 1px solid rgba(0, 242, 255, 0.1); margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
         }
 
         /* --- COMPTEURS --- */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .stat-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .stat-num { display: block; font-family: 'Orbitron'; font-size: 2rem; font-weight: 900; }
+        .stat-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-num { display: block; font-family: 'Orbitron'; font-size: 2.2rem; font-weight: 900; }
 
         /* --- STAFF BADGES --- */
         .member { 
-            padding: 15px; border-radius: 12px; background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
         }
-        .member.owner { border-color: #ffd700; box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2); }
+        .member.owner { border-color: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); }
         .member.admin { border-color: var(--primary); }
         .member.modo { border-color: var(--secondary); }
+
+        /* --- WIDGETBOT ULTIMATE --- */
+        .chat-container { 
+            height: 600px; border-radius: 10px; overflow: hidden; 
+            background: #000; border: 1px solid rgba(188, 19, 254, 0.3);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .join-btn-ultra {
+            display: block; width: 100%; padding: 15px; margin-top: 15px;
+            background: linear-gradient(45deg, var(--discord-blue), #4752C4);
+            color: white; text-align: center; border-radius: 8px; text-decoration: none;
+            font-weight: bold; font-family: 'Orbitron'; letter-spacing: 1px; transition: 0.3s;
+        }
+        .join-btn-ultra:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); transform: translateY(-2px); }
 
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--primary); }
         .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
 
-        @media (max-width: 1000px) { .container { grid-template-columns: 1fr; } }
+        @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -80,85 +110,128 @@
 
     <nav>
         <div class="logo">MATH <span style="color:var(--primary)">RUSH</span></div>
-        <div style="display: flex; gap: 15px;">
-            <a href="https://youtube.com/@mathrushyoutube" style="color:red;"><i class="fab fa-youtube fa-lg"></i></a>
-            <a href="https://discord.gg/kbd4WGCY" style="color:#5865F2;"><i class="fab fa-discord fa-lg"></i></a>
+        <div style="display: flex; gap: 20px;">
+            <a href="https://youtube.com/@mathrushyoutube" target="_blank" style="color:var(--yt-red);"><i class="fab fa-youtube fa-2x"></i></a>
+            <a href="https://discord.gg/kbd4WGCY" target="_blank" style="color:var(--discord-blue);"><i class="fab fa-discord fa-2x"></i></a>
         </div>
     </nav>
 
     <div class="news-bar">
-        <div class="news-text">🔥 BIENVENUE SUR LE HUB OFFICIEL ! - NOUVEAU LIVE BIENTÔT - REJOIGNEZ LE DISCORD POUR PARTICIPER AUX GIVEAWAYS - 🔥</div>
+        <div class="news-text">🚀 BIENVENUE SUR LE HUB ! - COMPTEURS EN DIRECT ACTIVÉS - NOUVELLES AMÉLIORATIONS DU STAFF DÉPLOYÉES - REJOIGNEZ-NOUS SUR DISCORD ! 🚀</div>
     </div>
 
     <div class="container">
         <main>
             <div class="stats-grid">
-                <div class="stat-item" style="border-bottom: 3px solid red;">
-                    <span class="stat-num" id="ytCount">20</span>
-                    <span style="font-size: 0.7rem; letter-spacing: 2px;">ABONNÉS YT</span>
+                <div class="stat-item" style="border-bottom: 4px solid var(--yt-red);">
+                    <span class="stat-num" id="ytCount" style="color: var(--yt-red);">0</span>
+                    <span style="font-size: 0.7rem; letter-spacing: 2px; font-weight: bold;">ABONNÉS YOUTUBE</span>
                 </div>
-                <div class="stat-item" style="border-bottom: 3px solid #5865F2;">
-                    <span class="stat-num" id="dcCount">50</span>
-                    <span style="font-size: 0.7rem; letter-spacing: 2px;">MEMBRES DISCORD</span>
+                <div class="stat-item" style="border-bottom: 4px solid var(--discord-blue);">
+                    <span class="stat-num" id="dcCount" style="color: var(--discord-blue);">0</span>
+                    <span style="font-size: 0.7rem; letter-spacing: 2px; font-weight: bold;">MEMBRES DISCORD</span>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 15px; color: var(--primary); font-family: 'Orbitron';"><i class="fas fa-play-circle"></i> DERNIER LIVE</h3>
+                <h3 class="glitch-title" style="margin-bottom: 20px; font-family: 'Orbitron';"><i class="fas fa-play-circle"></i> DERNIER LIVE / VIDÉO</h3>
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/CVKQ2U4yZhw" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-bottom: 15px; color: var(--primary); font-family: 'Orbitron';"><i class="fas fa-shield-alt"></i> L'ÉQUIPE DU HUB</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; text-align: center;">
+                <h3 class="glitch-title" style="margin-bottom: 20px; font-family: 'Orbitron';"><i class="fas fa-users-cog"></i> ÉQUIPE DE GESTION</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; text-align: center;">
                     <div class="member owner">
-                        <i class="fas fa-crown" style="color: gold; font-size: 1.5rem;"></i>
-                        <div style="font-weight: bold; font-size: 0.9rem;">MATH RUSH</div>
-                        <div style="font-size: 0.6rem; color: gold;">FONDATEUR</div>
+                        <i class="fas fa-crown" style="color: gold; font-size: 1.8rem; margin-bottom: 8px;"></i>
+                        <div style="font-weight: bold; font-family: 'Orbitron'; font-size: 0.8rem;">MATH RUSH</div>
+                        <div style="font-size: 0.6rem; color: gold; letter-spacing: 1px;">FONDATEUR</div>
                     </div>
                     <div class="member admin">
-                        <i class="fas fa-user-shield" style="color: var(--primary); font-size: 1.5rem;"></i>
-                        <div style="font-weight: bold; font-size: 0.9rem;">ANDROCYB</div>
-                        <div style="font-size: 0.6rem; color: var(--primary);">ADMIN</div>
+                        <i class="fas fa-user-shield" style="color: var(--primary); font-size: 1.8rem; margin-bottom: 8px;"></i>
+                        <div style="font-weight: bold; font-family: 'Orbitron'; font-size: 0.8rem;">ANDROCYB</div>
+                        <div style="font-size: 0.6rem; color: var(--primary); letter-spacing: 1px;">ADMINISTRATEUR</div>
                     </div>
                     <div class="member modo">
-                        <i class="fas fa-bolt" style="color: var(--secondary); font-size: 1.5rem;"></i>
-                        <div style="font-weight: bold; font-size: 0.9rem;">LIARQS</div>
-                        <div style="font-size: 0.6rem; color: var(--secondary);">MODO</div>
+                        <i class="fas fa-bolt" style="color: var(--secondary); font-size: 1.8rem; margin-bottom: 8px;"></i>
+                        <div style="font-weight: bold; font-family: 'Orbitron'; font-size: 0.8rem;">LIARQS</div>
+                        <div style="font-size: 0.6rem; color: var(--secondary); letter-spacing: 1px;">MODÉRATEUR</div>
                     </div>
                 </div>
             </div>
         </main>
 
         <aside>
-            <div class="card" style="height: 100%;">
-                <h3 style="margin-bottom: 15px; color: var(--secondary); font-family: 'Orbitron';"><i class="fab fa-discord"></i> CHAT LIVE</h3>
-                <widgetbot server="1454771505643782198" channel="" width="100%" height="500" shard="https://e.widgetbot.io"></widgetbot>
-                <a href="https://discord.gg/kbd4WGCY" target="_blank" style="display: block; background: #5865F2; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; margin-top: 15px; font-weight: bold;">REJOINDRE</a>
+            <div class="card" style="border: 1px solid var(--secondary); background: rgba(5, 5, 10, 0.95);">
+                <h3 class="glitch-title" style="margin-bottom: 15px; color: var(--secondary); font-family: 'Orbitron'; font-size: 1.1rem;">
+                    <i class="fab fa-discord"></i> CHAT COMMUNAUTÉ
+                </h3>
+                <div class="chat-container">
+                    <widgetbot 
+                        server="1454771505643782198" 
+                        channel="1454771505643782198" 
+                        width="100%" 
+                        height="100%" 
+                        shard="https://e.widgetbot.io">
+                    </widgetbot>
+                </div>
+                <a href="https://discord.gg/kbd4WGCY" target="_blank" class="join-btn-ultra">
+                    REJOINDRE LE DISCORD
+                </a>
             </div>
         </aside>
     </div>
 
     <script>
-        // SCRIPT FOND ÉTOILÉ
+        // CONFIGURATION CHIFFRES
+        let valYT = 20; 
+        let valDC = 50;
+
+        // ANIMATION COMPTEURS
+        function animateValue(id, end) {
+            let start = 0;
+            let duration = 2000;
+            let obj = document.getElementById(id);
+            let startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = Math.min((timestamp - startTime) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) window.requestAnimationFrame(step);
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        // FOND ÉTOILÉ
         const canvas = document.getElementById('canvas-stars');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const stars = [];
-        for(let i=0; i<150; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*2, speed: Math.random()*0.5});
+        let stars = [];
+        function initStars() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<150; i++) {
+                stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*1.5, speed: Math.random()*0.4 + 0.1});
+            }
+        }
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
             stars.forEach(s => {
                 ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill();
                 s.y += s.speed; if(s.y > canvas.height) s.y = 0;
             });
             requestAnimationFrame(drawStars);
         }
-        drawStars();
+
+        window.onload = () => {
+            initStars();
+            drawStars();
+            animateValue("ytCount", valYT);
+            animateValue("dcCount", valDC);
+        };
+        window.onresize = initStars;
     </script>
 </body>
 </html>
