@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATH RUSH | REBOOTING...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* CONTENEUR VIDÉO */
+        .video-background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .video-background iframe {
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* OVERLAY DYNAMIQUE */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.9) 50%),
+                        radial-gradient(circle, transparent 20%, #000 150%);
+            background-size: 100% 4px;
+            z-index: 1;
+        }
+
+        /* CONTENU */
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: clamp(3.5rem, 10vw, 5.5rem);
+            font-weight: 900;
+            background: linear-gradient(to right, #00f2ff, #bc13fe, #00f2ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.6));
+            margin-bottom: 5px;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* MESSAGE SPÉCIAL */
+        .welcome-msg {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .glitch-text {
+            font-size: 1rem;
+            letter-spacing: 6px;
+            color: #bc13fe;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            animation: blink 1.5s steps(2) infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        /* LOADER */
+        .loader-container {
+            width: 320px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .loader-label {
+            font-size: 0.7rem;
+            color: #00f2ff;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .loader {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        .loader::after {
+            content: "";
+            position: absolute;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
+            animation: move 1.5s infinite ease-in-out;
+        }
+
+        @keyframes move {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .discord-btn {
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid #5865F2;
+            transition: all 0.4s;
+        }
+
+        .discord-btn:hover {
+            background: #5865F2;
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 150px rgba(188, 19, 254, 0.2);
+            z-index: 3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/S_I5pE_C-6w?autoplay=1&mute=1&controls=0&loop=1&playlist=S_I5pE_C-6w&rel=0&showinfo=0&modestbranding=1" 
+                frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    </div>
+
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+
+    <div class="content">
+        <div class="logo">MATH RUSH</div>
+        
+        <p class="welcome-msg">Bonjour ! Le site fait une maintenance spéciale.</p>
+        <p class="glitch-text">Revenez un autre jour, merci !</p>
+        
+        <div class="loader-container">
+            <div class="loader-label">
+                <span>OPTIMISATION SYSTÈME</span>
+                <span id="percent">62%</span>
+            </div>
+            <div class="loader"></div>
+        </div>
+
+        <a href="https://discord.gg/kbd4WGCY" class="discord-btn">
+            <i class="fab fa-discord"></i> Quartier Général (Discord)
+        </a>
+    </div>
+
+    <script>
+        let percent = document.getElementById('percent');
+        setInterval(() => {
+            let current = parseInt(percent.innerText);
+            if(current < 99) percent.innerText = (current + 1) + "%";
+        }, 8000);
+    </script>
+
+</body>
+</html>
